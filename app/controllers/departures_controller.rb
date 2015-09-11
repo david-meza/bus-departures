@@ -6,11 +6,17 @@ class DeparturesController < ApplicationController
 
   def create
     @agent = Agent.new
-    @departures = @agent.departures_by_stop_name(params[:agency_name], params[:stop_name])
     respond_to do |format|
-      if @departures
-        format.js
+      if params[:agency_name].length > 1 && params[:stop_name].length > 1
+        @departures = @agent.departures_by_stop_name(params[:agency_name], params[:stop_name])
+        if @departures
+          format.js
+        else
+          flash[:alert] = "We processed your request but received no results"
+          format.js { render "shared/flash" }
+        end
       else
+        flash[:alert] = "Please fill out both input fields"
         format.js { render "shared/flash" }
       end
     end

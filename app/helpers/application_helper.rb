@@ -17,4 +17,26 @@ module ApplicationHelper
     nil
   end
 
+  def color_code(num)
+    if num <= 5
+      "text-danger"
+    elsif num <= 10
+      "text-warning"
+    else
+      "text-info"
+    end
+  end
+
+  def display_departures(departures)
+    if departures.empty?
+      "<span>No departures<span>".html_safe
+    else
+      str = ""
+      departures.each do |num|
+        str += "<span class='#{color_code(num)}'>#{num} minutes<span><br>"
+      end
+      str.html_safe
+    end
+  end
+
 end

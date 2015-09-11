@@ -25,7 +25,7 @@ class Agent
   def departures_by_stop_name(agency_name, stop_name)
     response = get(:get_next_departures_by_stop_name, { agency_name: agency_name, stop_name: stop_name })
     info = {}
-    if response
+    unless response.empty?
       response[0]["routes"].each do |route|
         info[route["name"]] = { destination: route["stops"][0]["name"], departure_times: route["stops"][0]["departure_times"] }
       end

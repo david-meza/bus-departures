@@ -2,7 +2,16 @@ var BD = BD || {}
 
 BD.Map = (function() {
 
+  var coords,
+      map;
+
   function initMap(position) {
+    generateCanvas();
+    createMap(position);
+    setMarker();
+  }
+
+  var generateCanvas = function () {
     var mapcanvas = document.createElement('div');
     mapcanvas.id = 'map-frame';
     mapcanvas.style.height = '100%';
@@ -10,8 +19,10 @@ BD.Map = (function() {
     mapcanvas.scrolling = "no";
 
     $("#departures").append(mapcanvas);
+  }
 
-    var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  var createMap = function (position) {
+    coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     var options = {
       zoom: 15,
       center: coords,
@@ -21,8 +32,10 @@ BD.Map = (function() {
       },
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    var map = new google.maps.Map($("#map-frame")[0], options);
+    map = new google.maps.Map($("#map-frame")[0], options);
+  }
 
+  var setMarker = function () {
     var marker = new google.maps.Marker({
         position: coords,
         map: map,
