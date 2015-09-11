@@ -1,12 +1,12 @@
-<%= form_tag 'http://services.my511.org/Transit2.0/GetNextDeparturesByStopName.aspx', id: "departures-form" do %>
+<%= form_tag '/departures', method: "post", id: "departures-form", remote: true do %>
 
   <div class="row">
-    <div class="col-sm-4 col-sm-offset-2">
+    <div class="col-xs-4 col-xs-offset-2">
       <%= label_tag :agency_name, "Agency Name" %>
       <%= text_field_tag :agency_name, "", class: "form-control", placeholder: "BART" %>
     </div>
 
-    <div class="col-sm-4">
+    <div class="col-xs-4">
       <%= label_tag :stop_name, "Stop Name" %>
       <%= text_field_tag :stop_name, "", class: "form-control", placeholder: "Fremont" %>
     </div>
@@ -15,7 +15,7 @@
   <br>
 
   <div class="row">
-    <div class="col-sm-12 text-vertical-center">
+    <div class="col-xs-12 text-vertical-center">
       <%= submit_tag "Find Departure Times", class: "btn btn-default btn-lg", id: "find-times" %>
     </div>
   </div>

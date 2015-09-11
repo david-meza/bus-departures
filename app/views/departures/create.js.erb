@@ -1,0 +1,6 @@
+var $results = $("<%= j(render partial: 'departures', locals: {:@departures => @departures}) %>")
+
+var $target = $("#results-table")
+
+$("#table-container").slideDown(500)
+$results.appendTo($target).hide().fadeIn(600)

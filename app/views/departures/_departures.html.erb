@@ -1,0 +1,11 @@
+<% @departures.each do |route, values| %>
+  <tr>
+    <td><%= route %></td>
+    <td><%= values[:destination] %></td>
+    <td>
+      <% values[:departure_times].each do |num| %>
+        <span class="<%= num <= 5 ? "text-danger" : "text-info" %>"><%= num %> minutes<span><br>
+      <% end -%>
+    </td>
+  </tr>
+<% end -%>

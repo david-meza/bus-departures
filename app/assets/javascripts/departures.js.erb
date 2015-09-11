@@ -16,7 +16,7 @@ BD.Departures = (function() {
     $('a[href*=#]:not([href=#])').click(scrollTo);
 
     // Intercepts form submission
-    $("#departures-form").on("submit", requestData);
+    // $("#departures-form").on("submit", requestData);
 
   }
 
@@ -31,7 +31,7 @@ BD.Departures = (function() {
       url: event.target.action,
       dataType: "xml",
       contentType: "text/xml",
-      headers: { 'Access-Control-Allow-Origin': 'http://localhost:3000'},
+      headers: { 'Access-Control-Allow-Origin': '*'},
       data: JSON.stringify({
         token: "<%= ENV['SFBAY511'] %>",
         agencyName: agencyName,

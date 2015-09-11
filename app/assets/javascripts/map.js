@@ -1,33 +1,51 @@
-function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 6
-  });
-  var infoWindow = new google.maps.InfoWindow({map: map});
+var BD = BD || {}
 
-  // Try HTML5 geolocation.
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
+BD.Map = (function() {
 
-      infoWindow.setPosition(pos);
-      infoWindow.setContent('Location found.');
-      map.setCenter(pos);
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
+  function initMap(position) {
+    var mapcanvas = document.createElement('div');
+    mapcanvas.id = 'map-frame';
+    mapcanvas.style.height = '100%';
+    mapcanvas.style.width = '100%';
+    mapcanvas.scrolling = "no";
+
+    $("#departures").append(mapcanvas);
+
+    var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    var options = {
+      zoom: 15,
+      center: coords,
+      mapTypeControl: false,
+      navigationControlOptions: {
+        style: google.maps.NavigationControlStyle.SMALL
+      },
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map($("#map-frame")[0], options);
+
+    var marker = new google.maps.Marker({
+        position: coords,
+        map: map,
+        title:"You are here!"
     });
-  } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
   }
-}
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-}
+  var run = function() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(initMap);
+    } else {
+      error('Geo Location is not supported');
+    }
+  }
+
+
+  return {
+    initMap: initMap,
+    run: run
+  }
+
+})();
+
+$(document).ready(function() {
+  BD.Map.run();
+});
