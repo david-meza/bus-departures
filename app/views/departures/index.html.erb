@@ -1,52 +1,22 @@
-<!-- Navigation -->
-<a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
-<nav id="sidebar-wrapper">
-  <ul class="sidebar-nav">
-    <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
-    <li class="sidebar-brand">
-      <a href="#top"  onclick = $("#menu-close").click(); >Start Bootstrap</a>
-    </li>
-    <li>
-      <a href="#top" onclick = $("#menu-close").click(); >Home</a>
-    </li>
-    <li>
-      <a href="#about" onclick = $("#menu-close").click(); >About</a>
-    </li>
-    <li>
-      <a href="#services" onclick = $("#menu-close").click(); >Services</a>
-    </li>
-    <li>
-      <a href="#portfolio" onclick = $("#menu-close").click(); >Portfolio</a>
-    </li>
-    <li>
-      <a href="#contact" onclick = $("#menu-close").click(); >Contact</a>
-    </li>
-  </ul>
-</nav>
-
-<!-- Header -->
 <header id="top" class="header">
   <div class="text-vertical-center">
     <h1>Bus Departures</h1>
     <h3>Never miss a bus again!</h3>
     <br>
-    <a href="#departures" class="btn btn-dark btn-lg">Find Next Departure</a>
+    <a href="#form" class="btn btn-dark btn-lg">Find Next Departure</a>
   </div>
 </header>
 
-<section class = "about">
-  Where are you?
-  Where are you headed?
+<section id = "form" class = "about">
+  <%= render partial: 'form' %>
 </section>
 
-<!-- Map -->
+
 <section id="departures" class="map">
-<!--   <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe> -->
-  <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed/v1/view?zoom=11&center=37.7749%2C-122.4194&key=AIzaSyDCwnppj18fMVUz4GtFyXYp3YBSmMi0NKc" allowfullscreen></iframe>
-  <br />
-  <small>
-    <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
-  </small>
+
+  <%= render partial: 'map' %>
+  <%# , locals: { url: "https://www.google.com/maps/embed/v1/view?zoom=11&center=-37.7749%2C122.4194&key=AIzaSyDCwnppj18fMVUz4GtFyXYp3YBSmMi0NKc" } %>
+
 </section>
 
 <!-- Footer -->

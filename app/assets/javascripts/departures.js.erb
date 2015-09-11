@@ -1,0 +1,76 @@
+var BD = BD || {}
+
+BD.Departures = (function() {
+
+  // http://services.my511.org/Transit2.0/GetNextDeparturesByStopName.aspx?token=69b9d983-b192-4b4a-930b-85cd0d5c1585&agencyName=BART&stopName=Fremont
+
+  var init = function () {
+    setListeners();
+  }
+
+  var setListeners = function() {
+    // Toggles the sidebar menu
+    $("#menu-close, #menu-toggle, #sidebar-wrapper a").click(toggleSidebar);
+
+    // Scrolls to the selected menu item on the page
+    $('a[href*=#]:not([href=#])').click(scrollTo);
+
+    // Intercepts form submission
+    $("#departures-form").on("submit", requestData);
+
+  }
+
+  var requestData = function(event) {
+    event.preventDefault();
+    var $form = $(event.target)
+    var agencyName = $("#agency_name").val();
+    var stopName = $("#stop_name").val();
+    $form.trigger("reset");
+    $.ajax({
+      method: "POST",
+      url: event.target.action,
+      dataType: "xml",
+      contentType: "text/xml",
+      headers: { 'Access-Control-Allow-Origin': 'http://localhost:3000'},
+      data: JSON.stringify({
+        token: "<%= ENV['SFBAY511'] %>",
+        agencyName: agencyName,
+        stopName: stopName,
+      }),
+      success: function(data, status, xhr) {
+        console.log(data, status, xhr)
+      },
+      error: function(xhr, status, errorThrown) {
+        console.log(xhr, status, errorThrown)
+      }
+    })
+
+  }
+
+  var toggleSidebar = function(event) {
+    event.preventDefault();
+    $("#sidebar-wrapper").toggleClass("active");
+  }
+
+  var scrollTo = function(event) {
+    event.preventDefault();
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      if (target.length) {
+        $('html,body').animate({
+          scrollTop: target.offset().top
+        }, 1000);
+      }
+    }
+  }
+
+  return {
+    init: init
+  }
+
+})();
+
+$(document).ready(function() {
+  BD.Departures.init();
+});
