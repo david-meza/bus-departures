@@ -6,9 +6,10 @@ class DeparturesController < ApplicationController
 
   def create
     @agent = Agent.new
+    @destination = params[:stop_name]
     respond_to do |format|
-      if params[:agency_name].length > 1 && params[:stop_name].length > 1
-        @departures = @agent.departures_by_stop_name(params[:agency_name], params[:stop_name])
+      if params[:agency_name].length > 1 && @destination.length > 1
+        @departures = @agent.departures_by_stop_name(params[:agency_name], @destination)
         if @departures
           format.js
         else

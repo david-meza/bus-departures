@@ -43,6 +43,29 @@ BD.Map = (function() {
     });
   }
 
+  var showDirections = function (destination) {
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+      map: map
+    });
+
+    // Set destination, origin and travel mode.
+    var request = {
+      destination: destination + ", CA",
+      origin: coords,
+      travelMode: google.maps.TravelMode.TRANSIT
+    };
+
+    // Pass the directions request to the directions service.
+    var directionsService = new google.maps.DirectionsService();
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        // Display the route on the map.
+        directionsDisplay.setDirections(response);
+      }
+    });
+  }
+
+
   var run = function() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(initMap);
@@ -54,7 +77,8 @@ BD.Map = (function() {
 
   return {
     initMap: initMap,
-    run: run
+    run: run,
+    showDirections: showDirections,
   }
 
 })();
