@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root 'departures#index'
 
   resources :departures, only: [:index, :create]
+
+  get 'get_agencies' => 'departures#get_agencies'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

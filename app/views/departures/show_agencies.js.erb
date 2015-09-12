@@ -1,0 +1,4 @@
+$dropdown = $("<%= collection_select @agencies, :length, @agencies, @agencies")
+$target = $("#agency_name")
+
+$target.replaceWith($dropdown);

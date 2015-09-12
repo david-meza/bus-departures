@@ -34,9 +34,11 @@ class Agent
     nil
   end
 
-  def getAgencies
+  def get_agencies
     response = get(:get_agencies)
-    binding.pry
+    info = []
+    response.each { |agency| info << agency["name"] }
+    info
   end
 
 end

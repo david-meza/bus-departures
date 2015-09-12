@@ -23,5 +23,13 @@ class DeparturesController < ApplicationController
     end
   end
 
+  def get_agencies
+    @agent = Agent.new
+    @agencies = @agent.get_agencies
+    respond_to do |format|
+      format.js { render :show_agencies }
+    end
+  end
+
 
 end
