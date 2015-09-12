@@ -9,7 +9,7 @@ BD.Map = (function() {
     generateCanvas();
     createMap(position);
     setMarker();
-  }
+  };
 
   var generateCanvas = function () {
     var mapcanvas = document.createElement('div');
@@ -19,7 +19,7 @@ BD.Map = (function() {
     mapcanvas.scrolling = "no";
 
     $("#departures").append(mapcanvas);
-  }
+  };
 
   var createMap = function (position) {
     coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -33,7 +33,7 @@ BD.Map = (function() {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map($("#map-frame")[0], options);
-  }
+  };
 
   var setMarker = function () {
     var marker = new google.maps.Marker({
@@ -41,7 +41,7 @@ BD.Map = (function() {
         map: map,
         title:"You are here!"
     });
-  }
+  };
 
   var showDirections = function (destination) {
     var directionsDisplay = new google.maps.DirectionsRenderer({
@@ -63,7 +63,7 @@ BD.Map = (function() {
         directionsDisplay.setDirections(response);
       }
     });
-  }
+  };
 
 
   var run = function() {
@@ -71,15 +71,15 @@ BD.Map = (function() {
       navigator.geolocation.getCurrentPosition(initMap);
     } else {
       error('Geo Location is not supported');
-    }
-  }
+    };
+  };
 
 
   return {
     initMap: initMap,
     run: run,
-    showDirections: showDirections,
-  }
+    showDirections: showDirections
+  };
 
 })();
 
